@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Testing Sidepanel",
+  "description": "testing the side panel",
+  "version": "1.0",
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "permissions": ["sidePanel", "contextMenus", "storage"]
+
+
+}
