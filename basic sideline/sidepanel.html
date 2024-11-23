@@ -1,15 +1,20 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Dictionary Side Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Notes Sidepanel</title>
+    <link rel="stylesheet" href="sidepanel.css">
   </head>
-  <body>
-    <h1>Dictionary</h1>
-    <hr />
-    <p id="select-a-word">Select a word to see the definition.</p>
-    <div>
-      <h2 id="definition-word"></h2>
-      <p id="definition-text"></p>
+<body>
+  <div class="container">
+    <h1>Notes</h1>
+    <button id="create"><img src="icons/icon128.png">Create New Note</button>
+
+    <div id="notes-container">
+      <p contenteditable="true" class="input-box"></p>
     </div>
-    <script src="sidepanel.js"></script>
-  </body>
+  </div>
+  <script src="sidepanel.js"></script> 
+</body>
 </html>
