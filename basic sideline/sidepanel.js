@@ -3,6 +3,9 @@ const clear = document.getElementById("clear");
 const noteInput = document.getElementById("noteInput");
 const create = document.getElementById("create")
 const notesContainer = document.getElementById("notes-container")
+const darkModeToggle = document.getElementById('darkModeToggle')
+const body = document.body
+
 let notes = document.querySelectorAll(".input-box")
 
 (function checkOldData() {
@@ -30,3 +33,11 @@ let notes = document.querySelectorAll(".input-box")
       }
     });
   }
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    darkModeToggle.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');   
+  
+    });
+  });
