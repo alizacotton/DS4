@@ -74,7 +74,6 @@ function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25,
   footerDiv.className = 'note-footer';
   
 
-
   // Trash can icon
   const deleteIcon = document.createElement('img');
   deleteIcon.src = 'icons/trash.png';
@@ -84,11 +83,13 @@ function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25,
   //URL display creation
   const urlDisplay = document.createElement('p');
   urlDisplay.className = 'note-url';
+  urlDisplay.id = 'editable-url';
   urlDisplay.textContent = url;
-  urlDisplay.contentEditable = true;
+  urlDisplay.contentEditable = false;
   urlDisplay.addEventListener('input', () => {
     saveNotes();
   })
+  urlDisplay.addEventListener('click', () => chrome.tabs.create({url: url}));
   footerDiv.appendChild(urlDisplay);
   footerDiv.appendChild(deleteIcon);
 
