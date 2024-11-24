@@ -8,5 +8,6 @@
 
 Need to change:
 - URL doesn't actually record URL
+- Making everything more accessible--adding alt text, descriptions
 - "Delete All" positioning doesn't match "My Notes" header
 - Half-functioning dark mode (doesn't stay dark)
