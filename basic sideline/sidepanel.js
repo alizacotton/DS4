@@ -12,30 +12,12 @@ function loadNotes() {
     notesContainer.innerHTML = '';
 
     notes.reverse().forEach((note, index) => {
-      createNoteElement(note.title, note.body, note.url, note.textAreaHeight, index);
+      createNoteElement(note.title, note.body, note.url, note.urlTitle, note.textAreaHeight, index);
     });
+    
   });
 }
 
-function applyTheme(isDarkMode) {
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      document.querySelector('.header').classList.add('dark-mode');
-      document.querySelectorAll('.note').forEach(note => note.classList.add('dark-mode'));
-      document.querySelectorAll('.note-footer').forEach(footer => footer.classList.add('dark-mode'));
-    } else {
-      document.body.classList.remove('dark-mode');
-      document.querySelector('.header').classList.remove('dark-mode');
-      document.querySelectorAll('.note').forEach(note => note.classList.remove('dark-mode'));
-      document.querySelectorAll('.note-footer').forEach(footer => footer.classList.remove('dark-mode'));
-    }
-  }
-
-  // Check for existing dark mode preference in storage
-chrome.storage.local.get(['darkMode'], (result) => {
-    const isDarkMode = result.darkMode || false;
-    applyTheme(isDarkMode); // Apply the theme on page load
-  });
 
 //create auto-resizing text area
 function textAreaAdjust(element) {
@@ -49,7 +31,7 @@ function textAreaAdjust(element) {
 
 
 // Create a new note element
-function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25, index = null) {
+function createNoteElement(title = '', body = '', url = '', urlTitle = '', textAreaHeight = 25, index = null) {
   const noteDiv = document.createElement('div');
   noteDiv.className = 'note';
 
@@ -57,16 +39,18 @@ function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25,
   const titleInput = document.createElement('input');
   titleInput.placeholder = 'Note Title';
   titleInput.value = title;
+  titleInput.className = 'title-text';
   titleInput.addEventListener('input', () => saveNotes());
 
   // Body textarea
   const bodyTextarea = document.createElement('textarea');
   bodyTextarea.placeholder = 'Start typing here...';
+  bodyTextarea.className = 'body-text';
   bodyTextarea.value = body;
   bodyTextarea.style.height = `${textAreaHeight}px`;
   bodyTextarea.addEventListener('input', () => {
     textAreaAdjust(bodyTextarea); // Auto-resize as user types
-    saveNotes(); // Save notes when content changes
+    saveNotes(); 
   });
 
   //URL and delete icon footer
@@ -84,7 +68,8 @@ function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25,
   const urlDisplay = document.createElement('p');
   urlDisplay.className = 'note-url';
   urlDisplay.id = 'editable-url';
-  urlDisplay.textContent = url;
+  urlDisplay.textContent = urlTitle;
+  urlDisplay.href = url;
   urlDisplay.contentEditable = false;
   urlDisplay.addEventListener('input', () => {
     saveNotes();
@@ -107,10 +92,11 @@ function saveNotes() {
   noteElements.forEach((noteElement) => {
     const title = noteElement.querySelector('input').value;
     const body = noteElement.querySelector('textarea').value;
-    const url = noteElement.querySelector('.note-url').textContent;
+    const url = noteElement.querySelector('.note-url').href;
+    const urlTitle = noteElement.querySelector('.note-url').textContent;
 
     const textAreaHeight = noteElement.querySelector('textarea').style.height;
-    notes.unshift({ title, body, url, textAreaHeight: parseInt(textAreaHeight, 10) || 25});
+    notes.unshift({ title, body, url, urlTitle, textAreaHeight: parseInt(textAreaHeight, 10) || 25});
   });
   chrome.storage.local.set({ notes });
 }
@@ -139,10 +125,11 @@ deleteAllBtn.addEventListener('click', () => {
 createNoteBtn.addEventListener('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const currentUrl = tabs[0].url; // Get the URL of the current active tab
+      const currentTitle = tabs[0].url.split("/")[2];
   
       chrome.storage.local.get(['notes'], (result) => {
         const notes = result.notes || [];
-        notes.push({ title: '', body: '', url: currentUrl, textAreaHeight: 25}); // New note with empty title and body, and the current URL
+        notes.push({ title: '', body: '', url: currentUrl, urlTitle: currentTitle, textAreaHeight: 25}); // New note with empty title and body, and the current URL
         chrome.storage.local.set({ notes }, () => {
           loadNotes(); // Reload notes
         });
@@ -150,18 +137,6 @@ createNoteBtn.addEventListener('click', () => {
     });
   });
 
-  darkModeToggle.addEventListener('click', () => {
-    // Toggle dark mode on button click
-    chrome.storage.local.get(['darkMode'], (result) => {
-      const currentMode = result.darkMode || false;
-      const newMode = !currentMode;
-  
-      // Save the new mode preference to chrome.storage.local
-      chrome.storage.local.set({ darkMode: newMode }, () => {
-        applyTheme(newMode); // Apply the theme based on the updated preference
-      });
-    });
-  });
 
 // Load notes when the extension popup opens
 loadNotes();
