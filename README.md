@@ -6,8 +6,11 @@
 - Individual notes can be deleted, as well as "delete all" button
 - Notes automatically resize for text, and can also be dragged to expand in the bottom right corner of a note
 
-Need to change:
-- URL doesn't actually record URL
+11/24 changes:
+- links fully functional--however, cannot be edited/changed
+- delete button re-formatted
+
+  
+Still could change:
 - Making everything more accessible--adding alt text, descriptions
-- "Delete All" positioning doesn't match "My Notes" header
 - Half-functioning dark mode (doesn't stay dark)
