@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Notes Sidepanel</title>
-    <link rel="stylesheet" href="sidepanel.css">
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side Notes</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
 <body>
-  <div class="container">
-    <h1>Notes</h1>
-    <button id="create"><img src="icons/icon128.png">Create New Note</button>
-
-    <div id="notes-container">
-      <p contenteditable="true" class="input-box"></p>
+    <div class="header">
+        <h1>My Notes</h1>
+        <button id="delete-all">Delete All</button>
     </div>
-  </div>
-  <script src="sidepanel.js"></script> 
+    <button id="create-note" class="create-note">Create New Note</button>
+  <div id="notes-container"></div>
+
+  <footer>
+    <button id="toggle-dark-mode" class="dark-mode-toggle">🌙 Dark Mode</button>
+  </footer>
+  
+  <script src="sidepanel.js"></script>
 </body>
 </html>
