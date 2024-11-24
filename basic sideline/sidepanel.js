@@ -73,14 +73,7 @@ function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25,
   const footerDiv = document.createElement('div');
   footerDiv.className = 'note-footer';
   
-  //url display
-  const urlDisplay = document.createElement('p');
-  urlDisplay.className = 'note-url';
-  if (url) {
-    urlDisplay.innerHTML = `URL: <a href="${url}" target="_blank">${url}</a>`;
-  } else {
-    urlDisplay.textContent = 'No URL'; // Display message if no URL is available
-  }
+
 
   // Trash can icon
   const deleteIcon = document.createElement('img');
@@ -88,10 +81,18 @@ function createNoteElement(title = '', body = '', url = '', textAreaHeight = 25,
   deleteIcon.className = 'delete-icon';
   deleteIcon.addEventListener('click', () => deleteNote(index));
 
-
+  //URL display creation
+  const urlDisplay = document.createElement('p');
+  urlDisplay.className = 'note-url';
+  urlDisplay.textContent = url;
+  urlDisplay.contentEditable = true;
+  urlDisplay.addEventListener('input', () => {
+    saveNotes();
+  })
   footerDiv.appendChild(urlDisplay);
   footerDiv.appendChild(deleteIcon);
 
+  //appending everything to the note
   noteDiv.appendChild(titleInput);
   noteDiv.appendChild(bodyTextarea);
   noteDiv.appendChild(footerDiv)
@@ -105,7 +106,8 @@ function saveNotes() {
   noteElements.forEach((noteElement) => {
     const title = noteElement.querySelector('input').value;
     const body = noteElement.querySelector('textarea').value;
-    const url = noteElement.querySelector('.note-url a') ? noteElement.querySelector('.note-url a').href : '';
+    const url = noteElement.querySelector('.note-url').textContent;
+
     const textAreaHeight = noteElement.querySelector('textarea').style.height;
     notes.unshift({ title, body, url, textAreaHeight: parseInt(textAreaHeight, 10) || 25});
   });
