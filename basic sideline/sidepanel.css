@@ -13,18 +13,18 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    padding-bottom: 7px;
     background-color: #f9f9f9;
     color: #333;
     border-bottom: 2px solid #ddd;
     vertical-align: middle;
+    border-radius: 15px;
   }
   .header h1 {
     font-size: 2.7em;
     margin-top: 0px;
     margin-bottom: 0px;
   }
-
-
 
   #delete-all {
     border: none;
@@ -36,13 +36,11 @@ body {
     margin-bottom: -5px;
     border-radius: 15px;
     cursor: pointer;
-  }
-
-  #delete-all {
-    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     vertical-align: middle;
     object-fit: contain;
   }
+
 
   #delete-all:hover {
     background-color: #a01d74;;
@@ -76,7 +74,7 @@ body {
   .note input {
     border: none;
     font-weight: bold;
-    font-size: 1.4em;
+    font-size: 1.6em;
     background: none;
     outline: none;
     border: none;
@@ -94,6 +92,7 @@ body {
     border: none;
     outline: none;
     background: none;
+    font-size: 1.3em;
   }
 
   .note-footer {
@@ -129,6 +128,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
   
   .create-note:hover {
@@ -148,7 +148,9 @@ body {
 
   .note #editable-url{
     margin-right: 10px;
-    width: 100%
+    width: fit-content;
+    word-break: break-all;
+    
   }
   
   #editable-url:hover {
@@ -165,18 +167,18 @@ body {
     color: #f9f9f9;
   }
 
+
   .header.dark-mode {
     background-color: #333;
     color: #f9f9f9;
     border-bottom: 2px solid #555;
   }
 
-  .note.dark-mode {
+  .note .dark-mode {
     background: #333;
     color: #f9f9f9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   }
-
 
 
   .note-footer.dark-mode {
@@ -198,6 +200,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   .dark-mode-toggle:hover {
